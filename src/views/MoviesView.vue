@@ -78,10 +78,9 @@
         this.fetchMovies(search, this.currentPage)
         this.$router.push({ path: '/movie', query: { search: this.searchParam, page: this.currentPage } })
 
-        const pages2 = paginator(this.currentPage, this.totalPages, this.searchParam)
-        if (pages2) {
-          this.paginatorPages = pages2
-          console.log(pages2, 'total:', this.totalPages)
+        const pages = paginator(this.currentPage, this.totalPages, this.searchParam)
+        if (pages) {
+          this.paginatorPages = pages
         }
         
       },
@@ -97,17 +96,15 @@
 
     data() {
       return {
-        searchParam: computed(() => this.$route.query.search as string),
+        search: computed(() => this.$route.query.search as string),
         pageParam: computed(() => this.$route.query.page as string)
       }
     },
 
     mounted() {
-      console.log(this.$route.query.search)
-
-      if (this.searchParam && this.pageParam) {
+      if (this.search && this.pageParam) {
         this.currentPage = Number(this.pageParam)
-        this.searchMovies(this.searchParam)
+        this.searchMovies(this.search)
       }
     }
   }

@@ -55,7 +55,7 @@ body {
 .searchbar {
     display: flex;
     gap: 14px;
-    background-color: var(--c-primary);
+    background-color: var(--c-tertiary);
     padding: 20px;
 }
 
