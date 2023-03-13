@@ -25,15 +25,7 @@
                     </span>
                 </div>
                 <div class="movie__genres">
-                    <span class="movie__genre">
-                        Action <strong>{{ movie.Genre }}</strong>
-                    </span>
-                    <span class="movie__genre">
-                        Sci-Fi
-                    </span>
-                    <span class="movie__genre">
-                        Thriller
-                    </span>
+                    
                 </div>
             </div>
         </div>
@@ -62,6 +54,13 @@
     </div>
 </div>
 </template>
+
+<!-- <span 
+    class="movie__genre"
+    v-for="genre in movie.Genre.split(',')"
+>
+    {{ genre.trim() }}
+</span> -->
 
 <script lang="ts">
   import Searchbar from '@/components/Searchbar.vue'

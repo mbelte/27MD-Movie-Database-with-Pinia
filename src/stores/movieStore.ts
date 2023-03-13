@@ -56,15 +56,14 @@ export const useMovieStore = defineStore('movieStore', {
     isLoading: false,
     isError: false,
     errorMsg: '',
-    totalPages: 0,
-    paginator: [],
+    totalPages: 1,
     movieSearchRes: [] as MovieSearchType[],
     movieRequested: {} as MovieFullType,
     page: 1
   }),
 
   actions: {
-    fetchMovies(search: string, page = 1) {
+    fetchMovies(search: string, page: number) {
       this.isLoading = true
       this.resetError()
 
@@ -75,10 +74,9 @@ export const useMovieStore = defineStore('movieStore', {
           if (data.Response === 'True') {
             this.movieSearchRes = data.Search
             this.totalPages = Math.ceil(Number(data.totalResults) / 10)
-            console.log(this.totalPages)
+
           } else {
-            this.isError = true
-            this.errorMsg = data.Error ?? 'Unknown error.'
+            this.setError(data)
           }
         })
     },
@@ -94,21 +92,19 @@ export const useMovieStore = defineStore('movieStore', {
           if (data.Response === 'True') {
             this.movieRequested = data
           } else {
-            this.isError = true
-            this.errorMsg = data.Error ?? 'Unknown error.'
+            this.setError(data)
           }          
         })
+    },
+
+    setError(data: MovieSearchRequestType) {
+      this.isError = true
+      this.errorMsg = data.Error ?? 'Unknown error.'
     },
 
     resetError() {
       this.isError = false
       this.errorMsg = ''
-    },
-
-    paginator(pages: number) {
-      if (pages < 10) {
-
-      }
     }
   }
 })
